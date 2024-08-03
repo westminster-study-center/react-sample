@@ -28,6 +28,7 @@ const MyTextInput = ({ label, ...props }: TextFieldProps & InputHTMLAttributes<H
   );
 };
 
+// the comment below is to silent ts-lint
 // eslint-disable-next-line
 const MyCheckbox: React.FC<PropsWithChildren<any>> = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'checkbox' });
