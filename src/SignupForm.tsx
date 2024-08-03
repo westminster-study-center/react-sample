@@ -1,7 +1,21 @@
-import { Formik, Form, useField } from 'formik';
+import { Formik, Form, useField, FieldHookConfig } from 'formik';
 import * as Yup from 'yup';
+import { PropsWithChildren, ClassAttributes, InputHTMLAttributes, DetailedHTMLProps, SelectHTMLAttributes } from 'react';
 
-const MyTextInput = ({ label, ...props }) => {
+interface Props {
+  foo: string;
+}
+
+export const ReactFCComponent: React.FC<PropsWithChildren<Props>> = ({ children, foo }) => {
+  return <div title={foo}>{children}</div>
+}
+
+type TextFieldProps = {
+  label: string;
+};
+
+const MyTextInput = ({ label, ...props }: TextFieldProps & InputHTMLAttributes<HTMLInputElement> &
+  ClassAttributes<HTMLInputElement> & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   return (
     <>
@@ -14,7 +28,8 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-const MyCheckbox = ({ children, ...props }) => {
+// eslint-disable-next-line
+const MyCheckbox: React.FC<PropsWithChildren<any>> = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'checkbox' });
   return (
     <div>
@@ -29,7 +44,8 @@ const MyCheckbox = ({ children, ...props }) => {
   );
 };
 
-const MySelect = ({ label, ...props }) => {
+const MySelect = ({ label, ...props }: TextFieldProps & InputHTMLAttributes<HTMLInputElement> &
+  ClassAttributes<HTMLInputElement> & DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   return (
     <div>
