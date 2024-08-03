@@ -6,12 +6,17 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import SignupForm from './SignupForm.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
   },
+  {
+    path: "/SignupForm",
+    element: <SignupForm/>,
+  },  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
