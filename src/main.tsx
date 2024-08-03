@@ -6,8 +6,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import SignupForm from './SignupForm.tsx';
-import Form from './components/Form.tsx';
+// eslint-disable-next-line
+import SignupForm from './SignupForm';
+import Form from './components/Form';
 
 const router = createBrowserRouter([
   {

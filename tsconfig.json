@@ -1,4 +1,9 @@
 {
+  "compilerOptions":{
+    "strict": true,
+    "noImplicitAny": false,
+    "allowJs": true
+  },
   "files": [],
   "references": [
     {
