@@ -2,9 +2,6 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 
 const MyTextInput = ({ label, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input>. We can use field meta to show an error
-  // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
     <>
@@ -18,10 +15,6 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 const MyCheckbox = ({ children, ...props }) => {
-  // React treats radios and checkbox inputs differently from other input types: select and textarea.
-  // Formik does this too! When you specify `type` to useField(), it will
-  // return the correct bag of props for you -- a `checked` prop will be included
-  // in `field` alongside `name`, `value`, `onChange`, and `onBlur`
   const [field, meta] = useField({ ...props, type: 'checkbox' });
   return (
     <div>
@@ -63,6 +56,16 @@ const SignupForm = () => {
           jobType: '', // added for our select
         }}
         validationSchema={Yup.object({
+          password: Yup
+            .string()
+            .min(8, 'Password must be 8 characters long')
+            .matches(/[0-9]/, 'Password requires a number')
+            .matches(/[a-z]/, 'Password requires a lowercase letter')
+            .matches(/[A-Z]/, 'Password requires an uppercase letter')
+            .matches(/[^\w]/, 'Password requires a symbol'),
+          confirm: Yup
+            .string()
+            .oneOf([Yup.ref('password')], 'Must match password'),
           firstName: Yup.string()
             .max(15, 'Must be 15 characters or less')
             .required('Required'),
@@ -109,6 +112,18 @@ const SignupForm = () => {
             name="email"
             type="email"
             placeholder="jane@formik.com"
+          />
+
+          <MyTextInput
+            label="Password"
+            name="password"
+            type="password"
+          />
+
+          <MyTextInput
+            label="Confirm Password"
+            name="confirm"
+            type="password"
           />
 
           <MySelect label="Job Type" name="jobType">
